@@ -5,7 +5,7 @@
     </div>
     <div class="timetable-contents">
       <tracks :count="tracks" />
-      <items :items="items" :columns="columns" :rows="rows" :row-height="64" />
+      <items :grids="grids" :columns="columns" :rows="rows" :row-height="64" />
     </div>
   </div>
 </template>
@@ -27,32 +27,42 @@
 }
 </style>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+
 import Tracks from '~/components/timetable/tracks'
 import Timespans from '~/components/timetable/timespans'
 import Items from '~/components/timetable/items'
+import { TimetableModel } from '~/src/timetable'
 
-export default {
+@Component({
   components: {
     Tracks,
     Timespans,
     Items
-  },
-  props: {
-    tracks: { type: Number, default: 2 },
-    timespans: { type: Array, default: () => [] },
-    items: { type: Array, default: () => [] }
-  },
-  data() {
-    return {}
-  },
-  computed: {
-    rows() {
-      return this.timespans.length
-    },
-    columns() {
-      return this.tracks
-    }
+  }
+})
+export default class Timetable extends Vue {
+  @Prop({ type: Object, default: () => {} }) timetable: TimetableModel
+
+  get timespans() {
+    return this.timetable.timespans
+  }
+
+  get grids() {
+    return this.timetable.grids
+  }
+
+  get rows() {
+    return this.timetable.timespans.length
+  }
+
+  get tracks() {
+    return this.timetable.tracks
+  }
+
+  get columns() {
+    return this.timetable.tracks
   }
 }
 </script>

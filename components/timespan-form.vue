@@ -22,49 +22,49 @@
   </form>
 </template>
 
-<script>
-import { Time, Timespan } from '~/src/time.js'
+<script lang="ts">
+import { Vue, Component, Prop, Provide, Emit } from 'vue-property-decorator'
 
-export default {
-  props: {
-    timeStep: { type: Number, default: 10 }
-  },
-  data() {
-    return {
-      draftBeginsTime: '09:00',
-      draftEndsTime: '09:10'
-    }
-  },
+import { Time, Timespan } from '~/src/time'
+
+@Component({
   computed: {
     timeStepSeconds() {
       return this.timeStep * 60
     }
-  },
-  methods: {
-    addTimespan() {
-      if (this.draftBeginsTime === '') {
-        alert('begins time is not defined')
-        return
-      }
-      if (this.draftEndsTime === '') {
-        alert('ends time is not defined')
-        return
-      }
+  }
+})
+export default class ItemForm extends Vue {
+  @Prop({ type: Number, default: 10 }) readonly timeStep: number
 
-      const timespan = new Timespan(
-        Time.parse(this.draftBeginsTime),
-        Time.parse(this.draftEndsTime)
-      )
-      if (!timespan.isValid()) {
-        alert(timespan + ' is invalid timespan')
-        return
-      }
+  @Provide() draftBeginsTime = '09:00'
 
-      this.$emit('create', timespan)
+  @Provide() draftEndsTime = '09:10'
 
-      this.draftBeginsTime = this.draftEndsTime
-      this.draftEndsTime = Time.parse(this.draftBeginsTime).addMinutes(this.timeStep).toString()
+  @Emit('create')
+  addTimespan(): Timespan {
+    if (this.draftBeginsTime === '') {
+      alert('begins time is not defined')
+      return
     }
+    if (this.draftEndsTime === '') {
+      alert('ends time is not defined')
+      return
+    }
+
+    const timespan = new Timespan(
+      Time.parse(this.draftBeginsTime),
+      Time.parse(this.draftEndsTime)
+    )
+    if (!timespan.isValid()) {
+      alert(timespan + ' is invalid timespan')
+      return
+    }
+
+    this.draftBeginsTime = this.draftEndsTime
+    this.draftEndsTime = Time.parse(this.draftBeginsTime).addMinutes(this.timeStep).toString()
+
+    return timespan
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <grid-layout
-    :layout.sync="layout"
+    :layout.sync="grids"
     :col-num="columns"
     :max-rows="rows"
     :margin="[0, 0]"
@@ -10,7 +10,7 @@
     :use-css-transforms="true"
   >
     <grid-item
-      v-for="grid in layout"
+      v-for="grid in grids"
       :key="grid.i"
       :x="grid.x"
       :y="grid.y"
@@ -18,8 +18,10 @@
       :h="grid.h"
       :i="grid.i"
     >
-      {{ grid.item.title }}
+      {{ grid.item.title }}<br>
       <small>{{ grid.item.description }}</small>
+      <small>extras: {{ encodeJSON(grid.item.extras) }}</small>
+      <small>grid: {{ encodeJSON(grid) }}</small>
     </grid-item>
   </grid-layout>
 </template>
@@ -27,36 +29,12 @@
 <script>
 import { GridLayout, GridItem } from 'vue-grid-layout'
 
-const GridCache = new Map()
-
-class TimetableItemGrid {
-  constructor(item) {
-    this.item = item
-    this.x = 0
-    this.y = 0
-    this.w = 1
-    this.h = 1
-    this.i = `item[${item.id}]`
-  }
-
-  static getOrCreate(item) {
-    const key = `item[${item.id}]`
-    if (GridCache.has(key)) {
-      return GridCache.get(key)
-    }
-
-    const grid = new TimetableItemGrid(item)
-    GridCache.set(key, grid)
-    return grid
-  }
-}
-
 export default {
   components: {
     GridLayout, GridItem
   },
   props: {
-    items: { type: Array, default: () => [] },
+    grids: { type: Array, default: () => [] },
     columns: { type: Number, default: 2 },
     rows: { type: Number, default: 2 },
     rowHeight: { type: Number, default: 64 }
@@ -64,10 +42,8 @@ export default {
   data() {
     return {}
   },
-  computed: {
-    layout() {
-      return this.items.map(TimetableItemGrid.getOrCreate)
-    }
+  methods: {
+    encodeJSON: JSON.stringify
   }
 }
 </script>

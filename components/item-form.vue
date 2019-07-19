@@ -18,26 +18,23 @@
   </form>
 </template>
 
-<script>
-import { TimetableItem } from '~/src/timetable-item.js'
+<script lang="ts">
+import { Vue, Component, Provide, Emit } from 'vue-property-decorator'
 
-const nextItemId = (id => () => ++id)(0)
+import { TimetableItem } from '~/src/timetable-item'
 
-export default {
-  data() {
-    return {
-      draftTitle: '',
-      draftDescription: ''
-    }
-  },
-  methods: {
-    addItem() {
-      const id = nextItemId()
-      const title = this.draftTitle
-      const description = this.draftDescription
-      const item = new TimetableItem(id, title, description)
-      this.$emit('create', item)
-    }
+@Component
+export default class ItemForm extends Vue {
+  @Provide() draftTitle = ''
+
+  @Provide() draftDescription = ''
+
+  @Emit('create')
+  addItem(): TimetableItem {
+    const title = this.draftTitle
+    const description = this.draftDescription
+    const item = new TimetableItem(title, description)
+    return item
   }
 }
 </script>

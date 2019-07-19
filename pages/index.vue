@@ -15,19 +15,29 @@
 
     <section class="section">
       <div class="container">
-        <form action="javascript:void(0)">
-          tracks: <input
-            v-model="tracks"
-            type="number"
-            name="tracks"
-            min="2"
-            max="8"
-          >
-        </form>
+        <tracks-form :tracks.sync="tracks" />
         <timespan-form @create="addTimespan" />
         <item-form @create="addItem" />
 
-        <timetable :tracks="tracksNum" :timespans="timespans" :items="items" />
+        <timetable :timetable="timetable" />
+
+        <form @submit.prevent="exportTimetable">
+          <button type="submit">
+            Export
+          </button>
+
+          <a v-if="exportURL" :href="exportURL" download>
+            Download
+          </a>
+        </form>
+
+        <form @submit.prevent="importTimetable">
+          <input type="file" name="import-target" @change="loadImportTarget">
+
+          <button type="submit" :disabled="!loadedContent">
+            Import
+          </button>
+        </form>
       </div>
     </section>
   </div>
@@ -38,23 +48,30 @@
 
 <script>
 import Timetable from '~/components/timetable.vue'
+import TracksForm from '~/components/tracks-form.vue'
 import ItemForm from '~/components/item-form.vue'
 import TimespanForm from '~/components/timespan-form.vue'
+import { TimetableModel } from '~/src/timetable'
 
 export default {
   components: {
-    Timetable, ItemForm, TimespanForm
+    Timetable, TracksForm, ItemForm, TimespanForm
   },
   data() {
     return {
       tracks: '2',
       timespans: [],
-      items: []
+      items: [],
+      loadedContent: null,
+      exportURL: null
     }
   },
   computed: {
     tracksNum() {
       return parseInt(this.tracks)
+    },
+    timetable() {
+      return TimetableModel.create(this.tracksNum, this.timespans, this.items)
     }
   },
   methods: {
@@ -80,6 +97,33 @@ export default {
 
       timespans.push(timespan)
       this.timespans = timespans.sort((a, b) => a.compare(b))
+    },
+    exportTimetable() {
+      const content = JSON.stringify(this.timetable.toDTO())
+      const blob = new Blob([content], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      this.exportURL = url
+    },
+    loadImportTarget(e) {
+      const target = e.target
+      const file = target.files[0]
+      const type = file.type
+      if (type !== 'application/json') {
+        alert('File is not JSON')
+      }
+
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        this.loadedContent = e.target.result
+      }
+      reader.readAsText(file)
+    },
+    importTimetable() {
+      const dto = JSON.parse(this.loadedContent)
+      const timetable = TimetableModel.fromDTO(dto)
+      this.tracks = timetable.tracks.toString()
+      this.timespans = timetable.timespans
+      this.items = timetable.items
     }
   }
 }

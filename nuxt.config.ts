@@ -16,6 +16,9 @@ const config: NuxtConfiguration = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  generate: {
+    dir: 'docs' // for Github Pages
+  },
   /*
   ** Customize the progress-bar color
   */

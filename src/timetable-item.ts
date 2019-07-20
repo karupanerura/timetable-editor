@@ -25,6 +25,7 @@ export class TimetableItemGrid {
   y = 0
   w = 1
   h = 1
+  moved = false
 
   constructor(item: TimetableItem) {
     this.id = nextGridId()

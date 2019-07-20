@@ -1,6 +1,17 @@
 import NuxtConfiguration from '@nuxt/config'
 
+// for Github Pages
+const ghPagesBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/timetable-editor/'
+  },
+  generate: {
+    dir: 'docs'
+  },
+} : {}
+
 const config: NuxtConfiguration = {
+  ...ghPagesBase,
   mode: 'spa',
   /*
   ** Headers of the page
@@ -15,9 +26,6 @@ const config: NuxtConfiguration = {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
-  },
-  generate: {
-    dir: 'docs' // for Github Pages
   },
   /*
   ** Customize the progress-bar color

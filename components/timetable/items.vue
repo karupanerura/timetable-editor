@@ -5,6 +5,7 @@
     :max-rows="rows"
     :margin="[0, 0]"
     :row-height="rowHeight"
+    :vertical-compact="false"
     :is-draggable="true"
     :is-resizable="true"
     :use-css-transforms="true"

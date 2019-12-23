@@ -16,30 +16,30 @@
     "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate"
   },
   "dependencies": {
-    "bulma": "^0.7.5",
-    "nuxt": "^2.0.0",
-    "ts-node": "^8.3.0",
-    "vue-grid-layout": "^2.3.4",
-    "vue-property-decorator": "^8.2.1"
+    "bulma": "^0.8.0",
+    "nuxt": "^2.11.0",
+    "ts-node": "^8.5.4",
+    "vue-grid-layout": "^2.3.7",
+    "vue-property-decorator": "^8.3.0"
   },
   "devDependencies": {
     "@nuxt/typescript": "^2.8.1",
-    "@nuxtjs/eslint-config": "^0.0.1",
-    "@nuxtjs/eslint-module": "^0.0.1",
-    "@typescript-eslint/eslint-plugin": "^1.12.0",
-    "@typescript-eslint/parser": "^1.12.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.15.1",
-    "eslint-config-standard": ">=12.0.0",
-    "eslint-plugin-import": ">=2.16.0",
-    "eslint-plugin-jest": ">=22.3.0",
-    "eslint-plugin-node": ">=8.0.1",
-    "eslint-plugin-nuxt": ">=0.4.2",
-    "eslint-plugin-promise": ">=4.0.1",
-    "eslint-plugin-standard": ">=4.0.0",
-    "eslint-plugin-vue": "^5.2.2",
-    "node-sass": "^4.12.0",
-    "nodemon": "^1.18.9",
-    "sass-loader": "^7.1.0"
+    "@nuxtjs/eslint-config": "^2.0.0",
+    "@nuxtjs/eslint-module": "^1.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": ">=14.1.0",
+    "eslint-plugin-import": ">=2.19.1",
+    "eslint-plugin-jest": ">=23.1.1",
+    "eslint-plugin-node": ">=10.0.0",
+    "eslint-plugin-nuxt": ">=0.5.0",
+    "eslint-plugin-promise": ">=4.2.1",
+    "eslint-plugin-standard": ">=4.0.1",
+    "eslint-plugin-vue": "^6.0.1",
+    "node-sass": "^4.13.0",
+    "nodemon": "^2.0.2",
+    "sass-loader": "^8.0.0"
   }
 }

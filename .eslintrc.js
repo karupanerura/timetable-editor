@@ -3,13 +3,16 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
+    "jest/globals": true
   },
   extends: [
     'eslint:recommended',
     'plugin:prettier/recommended',
-    'plugin:vue/recommended'
+    'plugin:vue/recommended',
+    'plugin:jest/recommended',
   ],
+  plugins: ['jest'],
   // add your custom rules here
   rules: {
     'no-console': 'off',

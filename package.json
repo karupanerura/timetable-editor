@@ -11,7 +11,8 @@
     "build:css": "node-sass --omit-source-map-url --include-path src/styles --include-path node_modules --output-style compressed -o docs src/styles/layout.scss",
     "watch:css": "npm run build:css -- --watch",
     "dev": "npx webpack-dev-server --mode development",
-    "build": "npm run build:css && npx webpack --mode production"
+    "build": "npm run build:css && npx webpack --mode production",
+    "test": "jest"
   },
   "dependencies": {
     "bulma": "^0.8.0",
@@ -19,19 +20,23 @@
     "vue-grid-layout": "^2.3.7"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.25",
     "@types/webpack-env": "^1.15.0",
     "babel-eslint": "^10.0.3",
     "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-config-standard": ">=14.1.0",
+    "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-vue": "^6.1.2",
+    "jest": "^24.9.0",
     "node-sass": "^4.13.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.1",
     "style-loader": "^1.1.2",
+    "ts-jest": "^24.3.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "vue-loader": "^15.8.3",

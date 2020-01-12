@@ -39,8 +39,9 @@ export class TimetableItemGrid {
   private static readonly cache = new WeakMap<TimetableItem, TimetableItemGrid>()
 
   static getOrCreate(item: TimetableItem): TimetableItemGrid {
-    if (TimetableItemGrid.cache.has(item)) {
-      return TimetableItemGrid.cache.get(item)
+    const cachedValue = TimetableItemGrid.cache.get(item)
+    if (cachedValue instanceof TimetableItemGrid) {
+      return cachedValue
     }
 
     const grid = new TimetableItemGrid(item)

@@ -2,19 +2,24 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true
-  },
-  plugins: ['@typescript-eslint'],
-  parserOptions: {
-    parser: '@typescript-eslint/parser'
+    node: true,
+    es6: true
   },
   extends: [
-    '@nuxtjs',
-    'plugin:nuxt/recommended'
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+    'plugin:vue/recommended'
   ],
   // add your custom rules here
   rules: {
-    '@typescript-eslint/no-unused-vars': 'error',
-    'no-console': 'off'
+    'no-console': 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        "singleQuote": true,
+        "semi": false,
+        "trailingComma": "es5"
+      },
+    ],
   }
 }

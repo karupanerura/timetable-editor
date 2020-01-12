@@ -43,15 +43,25 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
+@charset "utf-8";
+
+@import "bulma/sass/utilities/initial-variables.sass";
+@import "bulma/sass/utilities/functions.sass";
+
+$body-family: 'Lato', 'Noto Sans JP', '游ゴシック Medium', '游ゴシック体', 'Yu Gothic Medium', YuGothic, 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+$section-padding: calc(env(safe-area-inset-top) + 2rem) calc(env(safe-area-inset-right) + 1.5rem) calc(env(safe-area-inset-bottom) + 3rem) calc(env(safe-area-inset-left) + 1.5rem);
+$footer-padding: calc(env(safe-area-inset-top) + 2rem) calc(env(safe-area-inset-right) + 1.5rem) calc(env(safe-area-inset-bottom) + 6rem) calc(env(safe-area-inset-left) + 1.5rem);
+
+@import "bulma/bulma.sass";
 </style>
 
 <script>
-import Timetable from '~/components/timetable.vue'
-import TracksForm from '~/components/tracks-form.vue'
-import ItemForm from '~/components/item-form.vue'
-import TimespanForm from '~/components/timespan-form.vue'
-import { TimetableModel } from '~/src/timetable'
+import Timetable from './components/timetable.vue'
+import TracksForm from './components/tracks-form.vue'
+import ItemForm from './components/item-form.vue'
+import TimespanForm from './components/timespan-form.vue'
+import { TimetableModel } from './editor/timetable'
 
 export default {
   components: {

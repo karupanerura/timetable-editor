@@ -1,4 +1,4 @@
-import { TimespanDTO } from 'timespan/dto'
+import { TimespanDTO } from '../timespan/dto'
 
 export interface TimetableDTO {
   readonly tracks: number

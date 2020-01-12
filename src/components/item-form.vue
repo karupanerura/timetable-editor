@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { TimetableItem } from 'editor/timetable-item'
+import { TimetableItem } from '../editor/timetable-item'
 
 export default {
   components: {

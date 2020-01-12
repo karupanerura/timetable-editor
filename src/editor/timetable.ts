@@ -1,4 +1,4 @@
-import { Timespan } from 'timespan/timespan'
+import { Timespan } from '../timespan/timespan'
 import { TimetableItem, TimetableItemGrid } from './timetable-item'
 import { range } from './array'
 import { TimetableDTO } from './dto'

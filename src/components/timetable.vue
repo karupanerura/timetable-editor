@@ -28,10 +28,10 @@
 </style>
 
 <script>
-import Tracks from '~/components/timetable/tracks'
-import Timespans from '~/components/timetable/timespans'
-import Items from '~/components/timetable/items'
-import { TimetableModel } from 'editor/timetable'
+import Tracks from './timetable/tracks.vue'
+import Timespans from './timetable/timespans.vue'
+import Items from './timetable/items.vue'
+import { TimetableModel } from '../editor/timetable'
 
 export default {
   components: {

@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import { Time } from 'timespan/time'
-import { Timespan } from 'timespan/timespan'
+import { Time } from '../timespan/time'
+import { Timespan } from '../timespan/timespan'
 
 export default {
   props: {

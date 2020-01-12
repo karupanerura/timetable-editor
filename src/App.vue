@@ -47,11 +47,11 @@
 </style>
 
 <script>
-import Timetable from '~/components/timetable.vue'
-import TracksForm from '~/components/tracks-form.vue'
-import ItemForm from '~/components/item-form.vue'
-import TimespanForm from '~/components/timespan-form.vue'
-import { TimetableModel } from 'editor/timetable'
+import Timetable from './components/timetable.vue'
+import TracksForm from './components/tracks-form.vue'
+import ItemForm from './components/item-form.vue'
+import TimespanForm from './components/timespan-form.vue'
+import { TimetableModel } from './editor/timetable'
 
 export default {
   components: {

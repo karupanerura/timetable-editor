@@ -4,7 +4,7 @@ const path = require('path')
 module.exports = {
   entry: path.join(__dirname, 'src/index'),
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'docs'),
     filename: '[name].bundle.js',
   },
   module: {
@@ -17,24 +17,39 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts-loader',
-//        options: { appendTsSuffixTo: [/\.vue$/] }
+        //        options: { appendTsSuffixTo: [/\.vue$/] }
       },
-    ]
- 
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'node_modules')],
+              },
+            },
+          },
+        ],
+      },
+    ],
   },
   resolve: {
-      extensions: ['.js', '.ts'],
-      alias: {
-        '~': path.join('./src'),
-        '~~': path.join('./src'),
-        '@': path.join('./src'),
-        '@@': path.join('./src')
-      }
+    extensions: ['.js', '.ts'],
+    alias: {
+      '~': path.join('./src'),
+      '@': path.join('./'),
+    },
   },
-  plugins: [
-    new VueLoaderPlugin(),
-  ],
+  plugins: [new VueLoaderPlugin()],
   devServer: {
-    contentBase: './public'
-  }
-};
+    contentBase: './dist',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+}

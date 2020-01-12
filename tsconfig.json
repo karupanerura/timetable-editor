@@ -5,10 +5,7 @@
     "moduleResolution": "node",
     "lib": ["esnext", "dom"],
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "declaration": true,
     "allowJs": false,
-    "sourceMap": true,
     "strict": true,
     "rootDir": "./src",
     "outDir": ".",
@@ -17,8 +14,7 @@
       "*": [
         "./src@types/*"
       ]
-    },
+    }
   },
-  "include": ["./src"],
-  "exclude": []
+  "exclude": ["node_modules", "docs"]
 }

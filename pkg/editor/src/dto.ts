@@ -1,17 +1,9 @@
+import { TimespanDTO } from 'timespan/dto'
+
 export interface TimetableDTO {
   readonly tracks: number
   readonly timespans: TimespanDTO[]
   readonly items: TimetableItemDTO[]
-}
-
-export interface TimespanDTO {
-  readonly beginsTime: TimeDTO
-  readonly endsTime: TimeDTO
-}
-
-export interface TimeDTO {
-  readonly hour: number
-  readonly minute: number
 }
 
 export interface TimetableItemDTO {

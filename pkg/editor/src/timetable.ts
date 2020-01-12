@@ -1,7 +1,7 @@
-import { Timespan, Time } from './time'
+import { Timespan } from 'timespan/timespan'
 import { TimetableItem, TimetableItemGrid } from './timetable-item'
-import { TimetableDTO, TimetableItemDTO } from './dto'
 import { range } from './array'
+import { TimetableDTO } from './dto'
 
 export class TimetableModel {
   readonly tracks: number
@@ -54,7 +54,7 @@ export class TimetableModel {
       grid.w = itemDTO.trackIds.length
       grid.h = timespanRange.length
 
-      return grids
+      return grid
     })
 
     return new TimetableModel(tracks, timespans, items, grids)

@@ -18,23 +18,26 @@
   </form>
 </template>
 
-<script lang="ts">
-import { Vue, Component, Provide, Emit } from 'vue-property-decorator'
+<script>
+import { TimetableItem } from 'editor/timetable-item'
 
-import { TimetableItem } from '~/src/timetable-item'
-
-@Component
-export default class ItemForm extends Vue {
-  @Provide() draftTitle = ''
-
-  @Provide() draftDescription = ''
-
-  @Emit('create')
-  addItem(): TimetableItem {
-    const title = this.draftTitle
-    const description = this.draftDescription
-    const item = new TimetableItem(title, description)
-    return item
+export default {
+  components: {
+  },
+  props: {
+    draftTitle: { type: String, default: "" },
+    draftDescription: { type: String, default: "" }
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    addItem() {
+      const title = this.draftTitle
+      const description = this.draftDescription
+      const item = new TimetableItem(title, description)
+      this.$emit('create', item)
+    }
   }
 }
 </script>

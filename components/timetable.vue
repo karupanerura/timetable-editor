@@ -27,42 +27,37 @@
 }
 </style>
 
-<script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
-
+<script>
 import Tracks from '~/components/timetable/tracks'
 import Timespans from '~/components/timetable/timespans'
 import Items from '~/components/timetable/items'
-import { TimetableModel } from '~/src/timetable'
+import { TimetableModel } from 'editor/timetable'
 
-@Component({
+export default {
   components: {
     Tracks,
     Timespans,
     Items
-  }
-})
-export default class Timetable extends Vue {
-  @Prop({ type: Object, default: () => {} }) timetable: TimetableModel
-
-  get timespans() {
-    return this.timetable.timespans
-  }
-
-  get grids() {
-    return this.timetable.grids
-  }
-
-  get rows() {
-    return this.timetable.timespans.length
-  }
-
-  get tracks() {
-    return this.timetable.tracks
-  }
-
-  get columns() {
-    return this.timetable.tracks
-  }
+  },
+  props: {
+    timetable: { type: Object, default: () => {} },
+  },
+  computed: {
+    timespans() {
+      return this.timetable.timespans
+    },
+    grids() {
+      return this.timetable.grids
+    },
+    rows() {
+      return this.timetable.timespans.length
+    },
+    tracks() {
+      return this.timetable.tracks
+    },
+    columns() {
+      return this.timetable.tracks
+    },
+  },
 }
 </script>

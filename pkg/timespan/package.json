@@ -1,0 +1,14 @@
+{
+  "name": "timespan",
+  "version": "0.1.0",
+  "description": "timespan meta object",
+  "scripts": {
+    "build": "tsc"
+  },
+  "main": "time.js",
+  "author": "karupanerura",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.7.4"
+  }
+}

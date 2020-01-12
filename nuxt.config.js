@@ -1,5 +1,3 @@
-import NuxtConfiguration from '@nuxt/config'
-
 // for Github Pages
 const ghPagesBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
   router: {
@@ -7,21 +5,21 @@ const ghPagesBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
   },
   generate: {
     dir: 'docs'
-  },
+  }
 } : {}
 
-const config: NuxtConfiguration = {
+export default {
   ...ghPagesBase,
   mode: 'spa',
   /*
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Web Timetable Editor',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: 'Timetable Editor' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -54,5 +52,3 @@ const config: NuxtConfiguration = {
   build: {
   }
 }
-
-export default config

@@ -1,7 +1,7 @@
 <template>
   <form action="javascript:void(0)">
     tracks: <input
-      v-model="syncedTracks"
+      v-model="tracks"
       type="number"
       name="tracks"
       min="2"
@@ -10,11 +10,18 @@
   </form>
 </template>
 
-<script lang="ts">
-import { Vue, Component, PropSync } from 'vue-property-decorator'
-
-@Component
-export default class TracksForm extends Vue {
-  @PropSync('tracks', { type: String, default: '2' }) syncedTracks: string
+<script>
+export default {
+  props: {
+    tracks: { type: String, default: '2' },
+  },
+  data() {
+    return {}
+  },
+  watch: {
+    tracks () {
+      this.$emit('update:tracks', this.tracks)
+    }
+  }
 }
 </script>

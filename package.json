@@ -8,8 +8,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "precommit": "npm run lint",
+    "build:css": "node-sass --omit-source-map-url --include-path src/styles --include-path node_modules --output-style compressed -o docs src/styles/layout.scss",
+    "watch:css": "npm run build:css -- --watch",
     "dev": "npx webpack-dev-server --mode development",
-    "build": "npx webpack --mode production"
+    "build": "npm run build:css && npx webpack --mode production"
   },
   "dependencies": {
     "bulma": "^0.8.0",

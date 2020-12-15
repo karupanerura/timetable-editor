@@ -3,12 +3,12 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
   },
   extends: [
     'eslint:recommended',
     'plugin:prettier/recommended',
-    'plugin:vue/recommended'
+    'plugin:vue/recommended',
   ],
   // add your custom rules here
   rules: {
@@ -16,10 +16,10 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        "singleQuote": true,
-        "semi": false,
-        "trailingComma": "es5"
+        singleQuote: true,
+        semi: false,
+        trailingComma: 'es5',
       },
     ],
-  }
+  },
 }

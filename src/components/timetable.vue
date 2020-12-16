@@ -5,8 +5,20 @@
     </div>
     <div class="timetable-contents">
       <tracks :count="tracks" />
-      <items :grids="grids" :columns="columns" :rows="rows" :row-height="64" />
+      <grid-layout
+        :layout.sync="grids"
+        :col-num="columns"
+        :max-rows="rows"
+        :margin="[0, 0]"
+        :row-height="64"
+        :is-draggable="true"
+        :is-resizable="true"
+        :use-css-transforms="true"
+      >
+        <grid-item v-for="grid in grids" :key="grid.i" :grid="grid" @focusgrid="focusToTheItemGrid" />
+      </grid-layout>
     </div>
+    <item-editor-modal :grid.sync="focusedItemGrid" @closemodal="unfocus" />
   </div>
 </template>
 
@@ -30,17 +42,25 @@
 <script>
 import Tracks from './timetable/tracks.vue'
 import Timespans from './timetable/timespans.vue'
-import Items from './timetable/items.vue'
-import { TimetableModel } from '../editor/timetable'
+import { GridLayout } from 'vue-grid-layout'
+import GridItem from './timetable/grid-item.vue'
+import ItemEditorModal from './timetable/item-editor-modal.vue'
 
 export default {
   components: {
     Tracks,
     Timespans,
-    Items
+    GridLayout,
+    GridItem,
+    ItemEditorModal,
   },
   props: {
     timetable: { type: Object, default: () => {} },
+  },
+  data() {
+    return {
+      focusedItemGrid: null,
+    }
   },
   computed: {
     timespans() {
@@ -57,6 +77,14 @@ export default {
     },
     columns() {
       return this.timetable.tracks
+    },
+  },
+  methods: {
+    focusToTheItemGrid(grid) {
+      this.focusedItemGrid = grid
+    },
+    unfocus() {
+       this.focusedItemGrid = null
     },
   },
 }

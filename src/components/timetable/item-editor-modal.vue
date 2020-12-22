@@ -115,7 +115,7 @@ export default {
         this.draftDescription,
         Object.fromEntries(this.draftExtras)
       )
-      this.$emit('update:item', this.grid.item)
+      this.$emit('update:grid', this.grid)
     },
     cancel() {
       this.editor = false

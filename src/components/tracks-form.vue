@@ -27,7 +27,7 @@ export default {
     return {}
   },
   watch: {
-    tracks () {
+    tracks() {
       this.$emit('update:tracks', this.tracks)
     }
   }

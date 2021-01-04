@@ -16,7 +16,7 @@
     <section class="section">
       <div class="container">
         <div class="content">
-          <timetable :timetable="timetable" />
+          <timetable :timetable.sync="timetable" />
           <timespan-form @create="addTimespan" />
           <tracks-form :tracks.sync="tracks" />
         </div>
@@ -82,8 +82,15 @@ export default {
     }
   },
   computed: {
-    timetable() {
-      return TimetableModel.create(this.tracks, this.timespans, this.items)
+    timetable: {
+      get() {
+        return TimetableModel.create(this.tracks, this.timespans, this.items)
+      },
+      set(timetable) {
+        this.tracks = timetable.tracks
+        this.timespans = timetable.timespans
+        this.items = timetable.items
+      }
     }
   },
   methods: {
@@ -133,7 +140,7 @@ export default {
     importTimetable() {
       const dto = JSON.parse(this.loadedContent)
       const timetable = TimetableModel.fromDTO(dto)
-      this.tracks = timetable.tracks.toString()
+      this.tracks = timetable.tracks
       this.timespans = timetable.timespans
       this.items = timetable.items
     }

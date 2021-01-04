@@ -2,7 +2,7 @@
   <div class="content">
     <div class="timetable">
       <div class="timespans">
-        <div v-for="timespan in timespans" :key="timespan.toString()" class="timespan">
+        <div v-for="timespan in timespans" :key="timespan.toString()" class="timespan" @click.right.prevent.stop="focusToTheTimespan(timespan)">
           <p class="title is-4">{{ timespan }}</p>
         </div>
       </div>
@@ -25,7 +25,8 @@
         </grid-layout>
       </div>
     </div>
-    <item-editor-modal :grid.sync="focusedItemGrid" @closemodal="unfocus" />
+    <item-editor-modal :grid.sync="focusedItemGrid" @closemodal="unfocusItem" />
+    <timespan-editor-modal :timespan.sync="focusedTimespan" :timespans.sync="timespans" @closemodal="unfocusTimespan" />
   </div>
 </template>
 
@@ -59,10 +60,12 @@
 </style>
 
 <script>
+import { TimetableModel } from '../editor/timetable'
 import Tracks from './timetable/tracks.vue'
 import { GridLayout } from 'vue-grid-layout'
 import GridItem from './timetable/grid-item.vue'
 import ItemEditorModal from './timetable/item-editor-modal.vue'
+import TimespanEditorModal from './timetable/timespan-editor-modal.vue'
 
 export default {
   components: {
@@ -70,6 +73,7 @@ export default {
     GridLayout,
     GridItem,
     ItemEditorModal,
+    TimespanEditorModal,
   },
   props: {
     timetable: { type: Object, default: () => {} },
@@ -77,11 +81,18 @@ export default {
   data() {
     return {
       focusedItemGrid: null,
+      focusedTimespan: null,
     }
   },
   computed: {
-    timespans() {
-      return this.timetable.timespans
+    timespans: {
+      get() {
+        return this.timetable.timespans
+      },
+      set(timespans) {
+        const timetable = TimetableModel.create(this.timetable.tracks, timespans, this.timetable.items)
+        this.$emit('update:timetable', timetable)
+      },
     },
     grids() {
       return this.timetable.grids
@@ -100,8 +111,14 @@ export default {
     focusToTheItemGrid(grid) {
       this.focusedItemGrid = grid
     },
-    unfocus() {
+    focusToTheTimespan(timespan) {
+      this.focusedTimespan = timespan
+    },
+    unfocusItem() {
        this.focusedItemGrid = null
+    },
+    unfocusTimespan() {
+       this.focusedTimespan = null
     },
   },
 }

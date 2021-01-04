@@ -1,25 +1,40 @@
 <template>
-  <form action="javascript:void(0)" @submit.prevent="addTimespan()">
-    time span: <input
-      v-model="draftBeginsTime"
-      type="time"
-      name="begins-time"
-      :step="timeStepSeconds"
-      :max="draftEndsTime"
-      required
-      pattern="[0-9]{2}:[0-9]{2}"
-    > ~ <input
-      v-model="draftEndsTime"
-      type="time"
-      name="ends-time"
-      :step="timeStepSeconds"
-      :min="draftBeginsTime"
-      required
-      pattern="[0-9]{2}:[0-9]{2}"
-    ><button type="submit">
-      add
-    </button><br>
-  </form>
+  <div class="container">
+    <form action="javascript:void(0)" @submit.prevent="addTimespan()">
+      <div class="field has-addons">
+        <div class="control">
+          <input
+            v-model="draftBeginsTime"
+            class="input"
+            type="time"
+            name="begins-time"
+            :step="timeStepSeconds"
+            :max="draftEndsTime"
+            required
+            pattern="[0-9]{2}:[0-9]{2}"
+          />
+        </div>
+        <p class="control">
+          <a class="button is-static">~</a>
+        </p>
+        <div class="control">
+          <input
+            v-model="draftEndsTime"
+            class="input"
+            type="time"
+            name="ends-time"
+            :step="timeStepSeconds"
+            :min="draftBeginsTime"
+            required
+            pattern="[0-9]{2}:[0-9]{2}"
+          />
+        </div>
+        <div class="control">
+          <button type="submit" class="button is-primary">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>

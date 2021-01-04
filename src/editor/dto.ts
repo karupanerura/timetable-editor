@@ -9,7 +9,7 @@ export interface TimetableDTO {
 export interface TimetableItemDTO {
   readonly title: string
   readonly description: string
-  readonly extras: Map<string, any>
+  readonly extras: {[key: string]: any}
   readonly timespan: TimespanDTO
   readonly trackIds: number[]
 }

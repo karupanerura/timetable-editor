@@ -1,11 +1,7 @@
 import { TimetableItemDTO } from './dto'
 
 export class TimetableItem {
-  readonly title: string
-  readonly description: string
-  readonly extras: Map<string, any>
-
-  constructor(title: string, description: string, extras: Map<string, any> = new Map<string, any>()) {
+  constructor(public readonly title: string, public readonly description: string, public readonly extras: {[key: string]: any} = {}) {
     this.title = title
     this.description = description
     this.extras = extras
@@ -20,7 +16,7 @@ const nextGridId = (id => () => ++id)(0)
 
 export class TimetableItemGrid {
   readonly id: number
-  readonly item: TimetableItem
+  item: TimetableItem
   x = 0
   y = 0
   w = 1

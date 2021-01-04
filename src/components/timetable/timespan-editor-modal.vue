@@ -43,12 +43,29 @@
           </section>
           <footer class="modal-card-foot">
             <template v-if="editor">
-              <button @click="commit" class="button is-success">Save</button>
-              <button @click="cancel" class="button">Cancel</button>
+              <div class="field is-grouped" style="width:100%">
+                <div class="control">
+                  <button @click="commit" class="button is-success">Save</button>
+                </div>
+                <div class="control">
+                  <button @click="cancel" class="button">Cancel</button>
+                </div>
+              </div>
+              <div class="field is-grouped is-grouped-right">
+                <div class="control">
+                  <button @click="remove" class="button is-danger">Remove</button>
+                </div>
+              </div>
             </template>
             <template v-else>
-              <button @click="edit" class="button is-success">Edit</button>
-              <button @click="close" class="button">Close</button>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button @click="edit" class="button is-success">Edit</button>
+                </div>
+                <div class="control">
+                  <button @click="close" class="button">Close</button>
+                </div>
+              </div>
             </template>
           </footer>
         </div>
@@ -144,11 +161,24 @@ export default {
       timespans.push(timespan)
       this.$emit('update:timespan', timespan)
       this.$emit('update:timespans', timespans.sort((a, b) => a.compare(b)))
-      this.draftBeginsTime = null
-      this.draftEndsTime = null
-      this.editor = false
+      this.reset()
+    },
+    remove() {
+      const ok = window.confirm(`Do you want to remove ${this.timespan}`)
+      if (!ok) {
+        return
+      }
+
+      const timespans = this.timespans.filter((item) => !item.equals(this.timespan))
+      this.$emit('update:timespan', null)
+      this.$emit('update:timespans', timespans)
+      this.reset()
+      this.close()
     },
     cancel() {
+      this.reset()
+    },
+    reset() {
       this.draftBeginsTime = null
       this.draftEndsTime = null
       this.editor = false

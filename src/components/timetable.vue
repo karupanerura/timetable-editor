@@ -1,37 +1,56 @@
 <template>
-  <div class="timetable">
-    <div class="timetable-timespans">
-      <timespans :items="timespans" />
-    </div>
-    <div class="timetable-contents">
-      <tracks :count="tracks" />
-      <grid-layout
-        :layout.sync="grids"
-        :col-num="columns"
-        :max-rows="rows"
-        :margin="[0, 0]"
-        :row-height="64"
-        :is-draggable="true"
-        :is-resizable="true"
-        :use-css-transforms="true"
-      >
-        <grid-item v-for="grid in grids" :key="grid.i" :grid="grid" @focusgrid="focusToTheItemGrid" />
-      </grid-layout>
+  <div class="content">
+    <div class="timetable">
+      <div class="timespans">
+        <div v-for="timespan in timespans" :key="timespan.toString()" class="timespan">
+          <p class="title is-4">{{ timespan }}</p>
+        </div>
+      </div>
+
+      <div class="timetable-contents">
+        <div class="tracks">
+          <tracks :count="tracks" />
+        </div>
+        <grid-layout
+          :layout.sync="grids"
+          :col-num="columns"
+          :max-rows="rows"
+          :margin="[0, 0]"
+          :row-height="64"
+          :is-draggable="true"
+          :is-resizable="true"
+          :use-css-transforms="true"
+        >
+          <grid-item v-for="grid in grids" :key="grid.i" :grid="grid" @focusgrid="focusToTheItemGrid" />
+        </grid-layout>
+      </div>
     </div>
     <item-editor-modal :grid.sync="focusedItemGrid" @closemodal="unfocus" />
   </div>
 </template>
 
 <style scoped>
+.timespans {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-top: 64px;
+  width: 240px;
+}
+
+.timespan {
+  height: 64px;
+  border : solid 1px rgba(0, 0, 0, 64);
+}
+
+.timespan p {
+  padding: 16px 8px;
+  text-align: right;
+}
+
 .timetable {
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
-}
-
-.timetable-timespans {
-  margin-top: 64px;
-  width: 240px;
 }
 
 .timetable-contents {
@@ -41,7 +60,6 @@
 
 <script>
 import Tracks from './timetable/tracks.vue'
-import Timespans from './timetable/timespans.vue'
 import { GridLayout } from 'vue-grid-layout'
 import GridItem from './timetable/grid-item.vue'
 import ItemEditorModal from './timetable/item-editor-modal.vue'
@@ -49,7 +67,6 @@ import ItemEditorModal from './timetable/item-editor-modal.vue'
 export default {
   components: {
     Tracks,
-    Timespans,
     GridLayout,
     GridItem,
     ItemEditorModal,

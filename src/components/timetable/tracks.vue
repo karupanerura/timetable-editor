@@ -1,7 +1,7 @@
 <template>
   <div class="tracks">
     <div v-for="track in tracks" :key="track" class="track">
-      {{ track }}
+      <p class="title">Track {{ track }}</p>
     </div>
   </div>
 </template>
@@ -15,6 +15,9 @@
 
 .track {
   display: table-cell;
+  border: solid 1px rgba(0, 0, 0, 64);
+  padding: 12px;
+  text-align: center;
 }
 </style>
 

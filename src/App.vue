@@ -15,29 +15,44 @@
 
     <section class="section">
       <div class="container">
-        <tracks-form :tracks.sync="tracks" />
-        <timespan-form @create="addTimespan" />
-        <item-form @create="addItem" />
+        <div class="content">
+          <timetable :timetable="timetable" />
+          <timespan-form @create="addTimespan" />
+          <tracks-form :tracks.sync="tracks" />
+        </div>
 
-        <timetable :timetable="timetable" />
+        <div class="content">
+          <h4>Add Item</h4>
+          <item-form @create="addItem" />
+        </div>
 
-        <form @submit.prevent="exportTimetable">
-          <button type="submit">
-            Export
-          </button>
+        <div class="content">
+          <h3>Export</h3>
+          <form @submit.prevent="exportTimetable">
+            <div class="field has-addons">
+              <div class="control">
+                <button class="button" type="submit">Generate Timetable JSON</button>
+              </div>
+              <div class="control">
+                <a class="button is-link" :disabled="!exportURL" :href="exportURL" download>
+                  Download
+                </a>
+              </div>
+            </div>
+          </form>
 
-          <a v-if="exportURL" :href="exportURL" download>
-            Download
-          </a>
-        </form>
-
-        <form @submit.prevent="importTimetable">
-          <input type="file" name="import-target" @change="loadImportTarget">
-
-          <button type="submit" :disabled="!loadedContent">
-            Import
-          </button>
-        </form>
+          <h3>Import</h3>
+          <form @submit.prevent="importTimetable">
+            <div class="field has-addons">
+              <div class="control">
+                <input type="file" class="input" name="import-target" @change="loadImportTarget">
+              </div>
+              <div class="control">
+                <button type="submit" class="button" :disabled="!loadedContent">Import</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   </div>
@@ -59,7 +74,7 @@ export default {
   },
   data() {
     return {
-      tracks: '2',
+      tracks: 2,
       timespans: [],
       items: [],
       loadedContent: null,
@@ -67,11 +82,8 @@ export default {
     }
   },
   computed: {
-    tracksNum() {
-      return parseInt(this.tracks)
-    },
     timetable() {
-      return TimetableModel.create(this.tracksNum, this.timespans, this.items)
+      return TimetableModel.create(this.tracks, this.timespans, this.items)
     }
   },
   methods: {

@@ -72,8 +72,19 @@
           </section>
           <footer class="modal-card-foot">
             <template v-if="editor">
-              <button @click="commit" class="button is-success">Save</button>
-              <button @click="cancel" class="button">Cancel</button>
+              <div class="field is-grouped" style="width:100%">
+                <div class="control">
+                  <button @click="commit" class="button is-success">Save</button>
+                </div>
+                <div class="control">
+                  <button @click="cancel" class="button">Cancel</button>
+                </div>
+              </div>
+              <div class="field is-grouped is-grouped-right">
+                <div class="control">
+                  <button @click="remove" class="button is-danger">Remove</button>
+                </div>
+              </div>
             </template>
             <template v-else>
               <button @click="edit" class="button is-success">Edit</button>
@@ -92,6 +103,7 @@ import { TimetableItem } from '../../editor/timetable-item'
 export default {
   props: {
     grid: { type: Object, default: () => null },
+    grids: { type: Array, default: () => [] },
   },
   data() {
     return {
@@ -121,6 +133,18 @@ export default {
         Object.fromEntries(this.draftExtras)
       )
       this.$emit('update:grid', this.grid)
+      this.$emit('update:grids', this.grids)
+    },
+    remove() {
+      const ok = window.confirm(`Do you want to remove ${this.grid.item.title}`)
+      if (!ok) {
+        return
+      }
+
+      const grids = this.grids.filter((grid) => grid.id !== this.grid.id)
+      this.$emit('update:grid', null)
+      this.$emit('update:grids', grids)
+      this.close()
     },
     cancel() {
       this.editor = false

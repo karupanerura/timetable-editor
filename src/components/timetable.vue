@@ -25,7 +25,7 @@
         </grid-layout>
       </div>
     </div>
-    <item-editor-modal :grid.sync="focusedItemGrid" @closemodal="unfocusItem" />
+    <item-editor-modal :grids.sync="grids" :grid.sync="focusedItemGrid" @closemodal="unfocusItem" />
     <timespan-editor-modal :timespan.sync="focusedTimespan" :timespans.sync="timespans" @closemodal="unfocusTimespan" />
   </div>
 </template>
@@ -94,8 +94,14 @@ export default {
         this.$emit('update:timetable', timetable)
       },
     },
-    grids() {
-      return this.timetable.grids
+    grids: {
+      get() {
+        return this.timetable.grids
+      },
+      set(grids) {
+        const timetable = TimetableModel.create(this.timetable.tracks, this.timetable.timespans, grids.map(grid => grid.item))
+        this.$emit('update:timetable', timetable)
+      },
     },
     rows() {
       return this.timetable.timespans.length

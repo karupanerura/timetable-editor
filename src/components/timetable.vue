@@ -90,7 +90,7 @@ export default {
         return this.timetable.timespans
       },
       set(timespans) {
-        const timetable = TimetableModel.create(this.timetable.tracks, timespans, this.timetable.items)
+        const timetable = this.timetable.withTimespans(timespans)
         this.$emit('update:timetable', timetable)
       },
     },
@@ -99,7 +99,7 @@ export default {
         return this.timetable.grids
       },
       set(grids) {
-        const timetable = TimetableModel.create(this.timetable.tracks, this.timetable.timespans, grids.map(grid => grid.item))
+        const timetable = this.timetable.withGrids(grids)
         this.$emit('update:timetable', timetable)
       },
     },

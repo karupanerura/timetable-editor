@@ -60,6 +60,15 @@ export class TimetableModel {
     return new TimetableModel(tracks, timespans, items, grids)
   }
 
+  withGrids(grids: TimetableItemGrid[]): TimetableModel {
+    const items = grids.map(grid => grid.item)
+    return new TimetableModel(this.tracks, this.timespans, items, grids)
+  }
+
+  withTimespans(timespans: Timespan[]): TimetableModel {
+    return new TimetableModel(this.tracks, timespans, this.items, this.grids)
+  }
+
   toDTO(): TimetableDTO {
     const items = this.grids.map(grid => {
       const beginsTimespan = this.timespans[grid.y]

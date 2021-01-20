@@ -133,7 +133,6 @@ export default {
         Object.fromEntries(this.draftExtras)
       )
       this.$emit('update:grid', this.grid)
-      this.$emit('update:grids', this.grids)
     },
     remove() {
       const ok = window.confirm(`Do you want to remove ${this.grid.item.title}`)

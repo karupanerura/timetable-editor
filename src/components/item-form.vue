@@ -17,11 +17,9 @@
       <div class="field">
         <label class="label">Description</label>
         <div class="control">
-          <input
+          <textarea
             v-model="draftDescription"
-            class="input"
-            type="text"
-            name="description"
+            class="textarea"
             required
           />
         </div>

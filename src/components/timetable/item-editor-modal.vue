@@ -9,7 +9,7 @@
               <div class="field">
                 <label class="label">Title</label>
                 <div class="control">
-                  <input class="input" type="text" v-model="draftTitle" placeholder="Title">
+                  <input class="input" type="text" v-model="draftTitle" placeholder="Title" required>
                 </div>
               </div>
             </template>
@@ -23,16 +23,21 @@
               <div class="field">
                 <label class="label">Description</label>
                 <div class="control">
-                  <input class="input" type="text" v-model="draftDescription" placeholder="Description">
+                  <textarea
+                    v-model="draftDescription"
+                    class="textarea"
+                    placeholder="Description"
+                    required
+                  />
                 </div>
               </div>
               <h4 class="mt-1">Extras</h4>
               <div class="field has-addons" v-for="entry in this.draftExtras" :key="entry[0]">
                 <p class="control">
-                  <input class="input" type="text" v-model.lazy="entry[0]" placeholder="Key">
+                  <input class="input" type="text" v-model.lazy="entry[0]" placeholder="Key" required>
                 </p>
                 <p class="control">
-                  <input class="input" type="text" v-model.lazy="entry[1]" :placeholder="'Value (' + typeof(entry[1]) + ')'">
+                  <input class="input" type="text" v-model.lazy="entry[1]" :placeholder="'Value (' + typeof(entry[1]) + ')'" required>
                 </p>
                 <p class="control">
                   <button @click="removeExtras(entry[0])" :disabled="!canAddExtras && 'disabled'" class="button is-danger">Remove</button>
@@ -45,7 +50,7 @@
               </div>
             </template>
             <template v-else>
-              <p>{{ grid.item.description }}</p>
+              <p style="white-space: pre-wrap">{{ grid.item.description }}</p>
               <template v-if="hasExtras">
                 <h4 class="mt-1">Extras</h4>
                 <table v-show="hasExtras" class="table">

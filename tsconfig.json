@@ -9,12 +9,7 @@
     "strict": true,
     "rootDir": "./src",
     "outDir": ".",
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "./src@types/*"
-      ]
-    }
+    "baseUrl": "."
   },
   "exclude": ["node_modules", "docs"]
 }

@@ -40,6 +40,13 @@
               </div>
             </div>
           </form>
+          <form @submit.prevent="createPermalink">
+            <div class="field has-addons">
+              <div class="control">
+                <button class="button" type="submit">Create Permalink</button>
+              </div>
+            </div>
+          </form>
 
           <h3>Import</h3>
           <form @submit.prevent="importTimetable">
@@ -67,6 +74,7 @@ import TracksForm from './components/tracks-form.vue'
 import ItemForm from './components/item-form.vue'
 import TimespanForm from './components/timespan-form.vue'
 import { TimetableModel } from './editor/timetable'
+import { serialize, deserialize } from './editor/serializer'
 
 export default {
   components: {
@@ -79,6 +87,19 @@ export default {
       items: [],
       loadedContent: null,
       exportURL: null
+    }
+  },
+  created() {
+    const query = Object.fromEntries(
+      location.search.substring(1)
+        .split(/&/).map(pair => pair.split(/=/, 2).map(decodeURIComponent))
+    )
+    if (query.timetable) {
+      const timetableDTO = deserialize(query.timetable)
+      const timetable = TimetableModel.fromDTO(timetableDTO)
+      this.tracks = timetable.tracks
+      this.timespans = timetable.timespans
+      this.items = timetable.items
     }
   },
   computed: {
@@ -122,6 +143,10 @@ export default {
       const blob = new Blob([content], { type: 'application/json' })
       const url = URL.createObjectURL(blob)
       this.exportURL = url
+    },
+    createPermalink() {
+      const content = serialize(this.timetable.toDTO())
+      location.search = '?timetable=' + encodeURIComponent(content)
     },
     loadImportTarget(e) {
       const target = e.target

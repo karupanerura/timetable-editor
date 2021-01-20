@@ -15,10 +15,12 @@
   },
   "dependencies": {
     "bulma": "^0.9.1",
+    "pako": "^2.0.3",
     "vue": "^2.6.12",
     "vue-grid-layout": "^2.3.11"
   },
   "devDependencies": {
+    "@types/pako": "^1.0.1",
     "@types/webpack-env": "^1.16.0",
     "babel-eslint": "^10.1.0",
     "css-loader": "^5.0.1",
